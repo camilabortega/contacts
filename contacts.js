@@ -22,6 +22,7 @@ function add(){
 
     contacts.push(contact);
     saveContacts();
+    openModal(false);
     loadContacts();
 
     name.value   = "";
@@ -31,6 +32,8 @@ function add(){
 function loadContacts(){
     var list = document.querySelector(".list ul");
     list.innerHTML = "";
+
+    document.querySelector(".list h3").style.display = "none";
 
     contacts.sort(function(a, b){
         if(a.name < b.name) {
@@ -53,4 +56,19 @@ function saveContacts(){
     localStorage.setItem("contacts", JSON.stringify(contacts));
 }
 
-document.querySelector(".add button").onclick = add;
+document.querySelector(".modal button").onclick = add;
+
+document.querySelector(".open-modal button").onclick = function (){openModal(true)};
+
+function openModal(open){
+    var modal = document.querySelector(".modal");
+    if(open){
+        modal.className = "modal";
+    } else{
+        modal.className = "modal hidden";
+    }
+}
+
+document.querySelector(".modal-background").onclick = function() {
+    openModal(false);
+}
